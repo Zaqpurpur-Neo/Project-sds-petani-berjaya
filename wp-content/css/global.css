@@ -85,7 +85,15 @@
 	
 	.modal-inner .right-side {
 		padding: 1em;
+		padding-top: 0 !important;
+	}
+
+	.right-side h3 {
 		padding-top: 0;
+	}
+
+	.long {
+		max-width: 100%;
 	}
 	
 	.left-side img {
