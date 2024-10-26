@@ -189,12 +189,12 @@ console.log("loaded")
 
 function itemTemplate(name, path, info) {
 	const div = document.createElement("div")
-	div.classList.add("items")
+	div.classList.add("items-region")
 
 	const content = name.replaceAll("_", " ").split(" ").map(item => item[0].toUpperCase() + item.substring(1, item.length)).join(" ").trim()   
 
 	div.innerHTML = `
-		<img src="${path}">
+		<img class="thumbnail-region" src="${path}">
 		<div class="descriptions">
 			<p>
 				${content}
