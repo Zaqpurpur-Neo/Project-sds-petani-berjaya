@@ -92,8 +92,8 @@
 		padding-top: 0;
 	}
 
-	.long {
-		max-width: 100%;
+	.right-side .long {
+		width: calc(100% + 10em);
 	}
 	
 	.left-side img {
