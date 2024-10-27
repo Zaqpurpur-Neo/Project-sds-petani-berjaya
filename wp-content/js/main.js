@@ -6,7 +6,7 @@ const parseCookie = str => str.split(';').map(v => v.split('=')).reduce((acc, v)
 
 const serializeCookie = (name, val) => `${encodeURIComponent(name)}=${encodeURIComponent(val)}`;
 
-let params_eng = parseCookie(document.cookie)
+let params_eng = document.cookie.length > 0 ? parseCookie(document.cookie) : {logged: false, username: ""}
 
 if(param !== -1) {
 	const searchParams = new URL(location.href).searchParams
