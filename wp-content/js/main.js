@@ -1,4 +1,61 @@
 const param = location.href.indexOf("?")
+const parseCookie = str => str.split(';').map(v => v.split('=')).reduce((acc, v) => {
+      acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+      return acc;
+    }, {});
+
+const serializeCookie = (name, val) => `${encodeURIComponent(name)}=${encodeURIComponent(val)}`;
+
+let params_eng = parseCookie(document.cookie)
+
+if(param !== -1) {
+	const searchParams = new URL(location.href).searchParams
+
+	const isLogged = searchParams.get("logged")
+	const uname = searchParams.get("username")
+	
+
+	document.cookie = serializeCookie('logged', isLogged)
+	document.cookie = serializeCookie('username', uname)
+	params_eng = parseCookie(document.cookie);
+	history.replaceState({}, "", location.origin)
+}
+
+
+if(document.cookie.length > 0) {
+	if(params_eng.logged === 'true') {
+		// const uname = params_eng.username
+		
+		const menu = document.querySelector(".register-menu");
+		const bef = menu.textContent
+		const urlbef= menu.href
+
+		menu.textContent = "Log Out";
+		menu.href = ""
+
+		const registerApp = document.querySelectorAll(".register-app")
+		registerApp.forEach(item => item.style.setProperty("display", "none"))
+
+		const registerInfo = document.querySelector(".register-info")
+		const registerInfoBtn = document.querySelector(".register-info-btn")
+		const infoText = document.querySelector(".register-info-text")
+
+		registerInfo.textContent = "Explore our products"
+		registerInfoBtn.href = "./products"
+		infoText.textContent = "See Our Products"
+
+		menu.addEventListener("click", ev => {
+			ev.preventDefault();
+
+			document.cookie = serializeCookie("logged", 'false')
+			document.cookie = serializeCookie("username", "")
+			// params_eng = parseCookie(document.cookie);
+
+			location.reload()
+		})
+	}
+}
+
 const modify = param === -1 ? location.href : location.href.substring(0, param-1)
 const target = (item) => modify + (modify.endsWith("/") ? "" : "/") + item		
 
